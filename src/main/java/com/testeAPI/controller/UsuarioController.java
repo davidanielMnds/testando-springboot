@@ -3,6 +3,7 @@ package com.testeAPI.controller;
 import com.testeAPI.dto.UsuarioRequestDTO;
 import com.testeAPI.model.Usuario;
 import com.testeAPI.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> postUsuario(@RequestBody UsuarioRequestDTO dto) {
+    public ResponseEntity<Usuario> postUsuario(@Valid  @RequestBody UsuarioRequestDTO dto) {
         Usuario usuario = usuarioService.postUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
