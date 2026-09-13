@@ -44,10 +44,10 @@ public class UsuarioService {
         Usuario usuarioAntigo = usuarioRepository.findById(id).orElse(null);
         if(usuarioAntigo==null) {return null;}
 
-        if(usuarioDTO.getNome()!=null) {
+        if(usuarioDTO.getNome()!=null && !usuarioDTO.getNome().isBlank()) {
             usuarioAntigo.setNome(usuarioDTO.getNome());
         }
-        if(usuarioDTO.getEmail()!=null) {
+        if(usuarioDTO.getEmail() != null && !usuarioDTO.getEmail().isBlank()) {
             usuarioAntigo.setEmail(usuarioDTO.getEmail());
         }
         return usuarioRepository.save(usuarioAntigo);
