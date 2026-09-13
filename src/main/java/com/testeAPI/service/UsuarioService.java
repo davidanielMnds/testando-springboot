@@ -15,31 +15,33 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<Usuario> getUsuarios() {return usuarioRepository.pegarUsuarios();}
+    public List<Usuario> getUsuarios() {
+        return usuarioRepository.findAll();
+    }
 
-    public Usuario getUsuarioPorID(Long id) {return usuarioRepository.pegarUsuarioPorID(id);}
+    public Usuario getUsuarioPorID(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
 
     public Usuario postUsuario(UsuarioRequestDTO dto) {
         Usuario usuario = new Usuario();
-        usuario.setId(usuarioRepository.incrementarID());
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
-        usuarioRepository.salvarUsuario(usuario);
-        return usuario;
+        return usuarioRepository.save(usuario);
     }
 
     public Usuario putUsuario(Long id, UsuarioRequestDTO usuarioDTO) {
-        Usuario usuarioAntigo = usuarioRepository.pegarUsuarioPorID(id);
+        Usuario usuarioAntigo = usuarioRepository.findById(id).orElse(null);
         if(usuarioAntigo==null) {
             return null;
         }
         usuarioAntigo.setNome(usuarioDTO.getNome());
         usuarioAntigo.setEmail(usuarioDTO.getEmail());
-        return usuarioAntigo;
+        return usuarioRepository.save(usuarioAntigo);
     }
 
     public Usuario patchUsuario(Long id, UsuarioRequestDTO usuarioDTO) {
-        Usuario usuarioAntigo = usuarioRepository.pegarUsuarioPorID(id);
+        Usuario usuarioAntigo = usuarioRepository.findById(id).orElse(null);
         if(usuarioAntigo==null) {return null;}
 
         if(usuarioDTO.getNome()!=null) {
@@ -48,13 +50,14 @@ public class UsuarioService {
         if(usuarioDTO.getEmail()!=null) {
             usuarioAntigo.setEmail(usuarioDTO.getEmail());
         }
-        return usuarioAntigo;
+        return usuarioRepository.save(usuarioAntigo);
     }
 
     public boolean deleteUsuario(Long id) {
-        Usuario usuario = usuarioRepository.pegarUsuarioPorID(id);
-        if(usuario==null) {return false;}
-        usuarioRepository.deletarUsuario(usuario);
+        if (!usuarioRepository.existsById(id)) {
+            return false;
+        }
+        usuarioRepository.deleteById(id);
         return true;
     }
 }
