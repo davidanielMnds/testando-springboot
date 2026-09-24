@@ -1,11 +1,41 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+import { ref } from 'vue'
+import type { Usuario } from './types/Usuario'
+import { buscarUsuarios } from './service/UsuarioService'
+
+const usuarios = ref<Usuario[]>([])
+async function carregarUsuarios() {
+  usuarios.value = await buscarUsuarios()
+}
+
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <main>
+    <h1>Minha API</h1>
+    <button @click="carregarUsuarios">
+      Carregar usuarios
+    </button>
+
+    <div v-for="usuario in usuarios" :key="usuario.id">
+      <p>Nome: {{ usuario.nome }}</p>
+      <p>Email: {{ usuario.email }}</p>
+      
+    </div>
+
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+  main{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  button{
+    padding: 10px 20px;
+    cursor:pointer;
+  }
+</style>
