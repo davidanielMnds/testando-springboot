@@ -3,39 +3,63 @@
 import { ref } from 'vue'
 import type { Usuario } from './types/Usuario'
 import { buscarUsuarios } from './service/UsuarioService'
-
-const usuarios = ref<Usuario[]>([])
-async function carregarUsuarios() {
-  usuarios.value = await buscarUsuarios()
-}
+import UsuarioLista from './components/UsuarioLista.vue'
+import UsuarioControler from './components/UsuarioControler.vue';
 
 </script>
 
 <template>
-  <main>
-    <h1>Minha API</h1>
-    <button @click="carregarUsuarios">
-      Carregar usuarios
-    </button>
 
-    <div v-for="usuario in usuarios" :key="usuario.id">
-      <p>Nome: {{ usuario.nome }}</p>
-      <p>Email: {{ usuario.email }}</p>
-      
-    </div>
+  <nav>
+     <h1>Titulo</h1>
+  </nav>
 
-  </main>
+  <div class="layout">
+
+      <aside>
+
+          <UsuarioLista/>
+
+      </aside>
+
+      <main>
+        
+        <UsuarioControler/>
+
+      </main>
+
+  </div>
+    
 </template>
 
 <style scoped>
-  main{
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px;
-  }
 
-  button{
-    padding: 10px 20px;
-    cursor:pointer;
+  nav{
+    background-color: var(--cor-terciaria);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    h1{
+      color:var(--cor-quarta);
+
+    }
   }
+    .layout{
+      flex:1;
+      display:flex;
+      align-items: center;
+      flex-direction: row;
+      margin-left: 4vw;
+      margin-right: 4vw;
+      padding-left:2vw;
+      padding-right: 2vw;
+      gap:2vw;
+    }
+
+    main{
+      flex:1;
+      background-color: black;
+    }
+
+
 </style>

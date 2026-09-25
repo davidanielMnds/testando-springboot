@@ -1,0 +1,18 @@
+body{
+    background-color:var(--cor-principal);
+    margin: 0px;
+}
+
+#app{
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+:root{
+    --cor-principal:#192230;
+    --cor-secundaria:#3d474e;
+    --cor-terciaria:#2c2f38;
+    --cor-quarta:#ffed00;
+
+}
