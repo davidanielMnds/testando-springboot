@@ -7,3 +7,8 @@ export async function buscarUsuarios(): Promise<Usuario[]> {
 
     return resposta.data
 }
+
+export async function deleteUsuario(id:number) {
+    const resposta = await axios.delete(`${URL}/${id}`)
+    return resposta.data
+}

@@ -1,11 +1,16 @@
 <script setup lang="ts">
     import { ref } from 'vue'
     import type { Usuario } from '../types/Usuario'
-    import { buscarUsuarios } from '@/service/UsuarioService';
+    import { buscarUsuarios, deleteUsuario } from '@/service/UsuarioService';
     const usuarios = ref<Usuario[]>([])
     
     async function carregarUsuarios() {
         usuarios.value = await buscarUsuarios()
+    }
+    async function deletarUsuario(id:number) {
+        await deleteUsuario(id)
+        usuarios.value = usuarios.value.filter(u=> u.id !== id)
+
     }
 </script>
 
@@ -24,7 +29,7 @@
                         <p><b>Email:</b> {{ usuario.email }}</p>
                     </div>
                     <div class="botoes_usuario">
-                        <button class="botao_usuario">excluir</button>
+                        <button class="botao_usuario" @click="deletarUsuario(usuario.id)" >excluir</button>
                         <button class="botao_usuario">pegar id</button>
                     </div>
                 </div>
@@ -172,7 +177,4 @@
     border-color: #666666;
     background: #292929;
     }
-
-
-
 </style>
