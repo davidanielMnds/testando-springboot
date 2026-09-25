@@ -58,7 +58,6 @@ import UsuarioControler from './components/UsuarioControler.vue';
 
     main{
       flex:1;
-      background-color: black;
     }
 
 

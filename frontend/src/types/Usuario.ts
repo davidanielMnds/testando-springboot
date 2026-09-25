@@ -3,3 +3,5 @@ export interface Usuario {
     nome: string
     email: string
 }
+
+export type NovoUsuario = Omit<Usuario, 'id'>
